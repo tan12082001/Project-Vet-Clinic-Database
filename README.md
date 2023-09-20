@@ -45,7 +45,7 @@ This repository includes files with plain SQL that can be used to recreate a dat
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 [VET-CLINIC-DATABASE] <a name="about-project"></a>
+# 📖 VET-CLINIC-DATABASE <a name="about-project"></a>
 
 > Vet clinic database is a project based on the Relational DATABASE programming language SQL. This project uses PostgreSQL for creating a simple database on inforamtion of animals. this project helps you understand the basic concepts like clauses and operators of the SQL language.
 
