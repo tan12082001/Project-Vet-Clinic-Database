@@ -18,3 +18,7 @@ CREATE TABLE animals (
 
 ALTER TABLE animals
 ADD species VARCHAR(100);
+
+/* Project - 3: Create multiple tables */
+
+

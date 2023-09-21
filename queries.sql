@@ -1,5 +1,7 @@
 /*Queries that provide answers to the questions from all projects.*/
 
+/* Project - 1: create animals table */
+
 SELECT *
 FROM animals
 WHERE name LIKE '%mon';
@@ -31,6 +33,8 @@ WHERE name NOT IN ('Gabumon');
 SELECT *
 FROM animals
 WHERE weight_kg BETWEEN 10.4 AND 17.3;
+
+/* Project - 2: Update the animals table */
 
 BEGIN;
     UPDATE animals SET species = 'unspecified';
@@ -76,3 +80,7 @@ SELECT species, AVG(escape_attempts)
 FROM animals
 WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31'
 GROUP BY species;
+
+/* Project - 3: Create multiple tables */
+
+
