@@ -83,4 +83,49 @@ GROUP BY species;
 
 /* Project - 3: Create multiple tables */
 
+-- general checking for owner name allocation
 
+SELECT owners.full_name, animals.name
+FROM animals
+INNER JOIN owners
+ON animals.owner_id = owners.id;
+
+SELECT owners.full_name, animals.name
+FROM animals
+INNER JOIN owners
+ON animals.owner_id = owners.id
+WHERE owners.full_name = 'Melody Pond';
+
+SELECT species.name, animals.name
+FROM animals
+INNER JOIN species
+ON animals.species_id = species.id
+WHERE species.name = 'Pokemon';
+
+SELECT species.name, COUNT(a.id)
+FROM species
+INNER JOIN animals
+ON species.id = animals.species_id
+GROUP BY species.name;
+
+SELECT owners.full_name, species.name, animals.name
+FROM animals
+INNER JOIN owners
+ON animals.owner_id = owners.id
+INNER JOIN species
+ON animals.species_id = species.id
+WHERE owners.full_name = 'Jennifer Orwell' AND species.name = 'Digimon';
+
+SELECT owners.full_name, animals.name
+FROM animals
+INNER JOIN owners
+ON animals.owner_id = owners.id
+WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
+
+SELECT owners.full_name, COUNT(owners.full_name) AS animals_count
+FROM animals
+INNER JOIN owners
+ON animals.owner_id = owners.id
+GROUP BY owners.full_name
+ORDER BY animals_count DESC
+LIMIT 1;
