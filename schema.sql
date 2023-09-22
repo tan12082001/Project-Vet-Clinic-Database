@@ -58,4 +58,21 @@ COMMIT;
 
 /* Project - 4: Add join table for vets and species */
 
+CREATE TABLE vets (
+    id INT GENERATED ALWAYS AS IDENTITY,
+	name VARCHAR(100),
+	age INT,
+	date_of_graduation DATE,
+    PRIMARY KEY(id)
+);
 
+CREATE TABLE specializations(
+    vet_id INT,
+	species_id INT
+);
+
+CREATE TABLE visits (
+    animal_id INT,
+	vet_id INT,
+	date_of_visit DATE
+);
