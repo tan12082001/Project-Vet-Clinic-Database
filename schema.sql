@@ -55,3 +55,7 @@ FOREIGN KEY(owner_id)
 REFERENCES owners(id);
 
 COMMIT;
+
+/* Project - 4: Add join table for vets and species */
+
+

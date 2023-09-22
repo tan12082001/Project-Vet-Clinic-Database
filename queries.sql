@@ -129,3 +129,7 @@ ON animals.owner_id = owners.id
 GROUP BY owners.full_name
 ORDER BY animals_count DESC
 LIMIT 1;
+
+/* Project - 4: Add join table for vets and species */
+
+
