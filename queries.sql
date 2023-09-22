@@ -1,5 +1,7 @@
 /*Queries that provide answers to the questions from all projects.*/
 
+/* Project - 1: create animals table */
+
 SELECT *
 FROM animals
 WHERE name LIKE '%mon';
@@ -31,6 +33,8 @@ WHERE name NOT IN ('Gabumon');
 SELECT *
 FROM animals
 WHERE weight_kg BETWEEN 10.4 AND 17.3;
+
+/* Project - 2: Update the animals table */
 
 BEGIN;
     UPDATE animals SET species = 'unspecified';
@@ -76,3 +80,52 @@ SELECT species, AVG(escape_attempts)
 FROM animals
 WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31'
 GROUP BY species;
+
+/* Project - 3: Create multiple tables */
+
+-- general checking for owner name allocation
+
+SELECT owners.full_name, animals.name
+FROM animals
+INNER JOIN owners
+ON animals.owner_id = owners.id;
+
+SELECT owners.full_name, animals.name
+FROM animals
+INNER JOIN owners
+ON animals.owner_id = owners.id
+WHERE owners.full_name = 'Melody Pond';
+
+SELECT species.name, animals.name
+FROM animals
+INNER JOIN species
+ON animals.species_id = species.id
+WHERE species.name = 'Pokemon';
+
+SELECT species.name, COUNT(a.id)
+FROM species
+INNER JOIN animals
+ON species.id = animals.species_id
+GROUP BY species.name;
+
+SELECT owners.full_name, species.name, animals.name
+FROM animals
+INNER JOIN owners
+ON animals.owner_id = owners.id
+INNER JOIN species
+ON animals.species_id = species.id
+WHERE owners.full_name = 'Jennifer Orwell' AND species.name = 'Digimon';
+
+SELECT owners.full_name, animals.name
+FROM animals
+INNER JOIN owners
+ON animals.owner_id = owners.id
+WHERE owners.full_name = 'Dean Winchester' AND animals.escape_attempts = 0;
+
+SELECT owners.full_name, COUNT(owners.full_name) AS animals_count
+FROM animals
+INNER JOIN owners
+ON animals.owner_id = owners.id
+GROUP BY owners.full_name
+ORDER BY animals_count DESC
+LIMIT 1;
