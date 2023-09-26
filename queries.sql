@@ -233,3 +233,38 @@ WHERE vets.name = 'Maisy Smith'
 GROUP BY species.name, vets.name
 ORDER BY count DESC
 LIMIT 1;
+
+/* project - 4: Performing performance audit */
+
+begin;
+-- Add an email column to your owners table
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+-- This will add 3.594.280 visits considering you have 10 animals, 4 vets, and it will use around ~87.000 timestamps (~4min approx.)
+INSERT INTO visits (animal_id, vet_id, date_of_visit) SELECT * FROM (SELECT id FROM animals) animal_ids, (SELECT id FROM vets) vets_ids, generate_series('1980-01-01'::timestamp, '2021-01-01', '4 hours') visit_timestamp;
+
+-- This will add 2.500.000 owners with full_name = 'Owner <X>' and email = 'owner_<X>@email.com' (~2min approx.)
+insert into owners (full_name, email) select 'Owner ' || generate_series(1,2500000), 'owner_' || generate_series(1,2500000) || '@mail.com';
+
+-- to meet the project requirements add the data from 4 to 5 times.
+
+-- check for query performance
+
+explain analyze SELECT COUNT(*) FROM visits where animal_id = 4;
+explain analyze SELECT * FROM visits where vet_id = 2;
+explain analyze SELECT * FROM owners where email = 'owner_18327@mail.com';
+
+-- use the INDEX clause to improve the searching performance.
+
+CREATE INDEX visits_vet_id ON visits(vet_id asc);
+CREATE INDEX visits_vet_id_asc ON visits(vet_id ASC);
+CREATE INDEX owners_email_asc ON owners(email ASC);
+
+-- check for the performace of the queries again to check for improvement in the execution time.
+
+explain analyze SELECT COUNT(*) FROM visits where animal_id = 4;
+explain analyze SELECT * FROM visits where vet_id = 2;
+explain analyze SELECT * FROM owners where email = 'owner_18327@mail.com';
+
+-- As we are not aiming to store the newly inserted data to vet_clinic database you can rollover after checking or drop the data.
+rollback;
